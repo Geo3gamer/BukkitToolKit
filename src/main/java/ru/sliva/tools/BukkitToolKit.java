@@ -9,7 +9,7 @@ import ru.sliva.tools.scheduler.Task;
 
 import java.util.List;
 
-public final class BukkitToolKit extends JavaPlugin {
+public final class BukkitToolKit extends JavaPlugin{
 
     @Override
     public void onEnable() {
