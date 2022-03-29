@@ -1,8 +1,8 @@
-name: '{$project.name}'
+name: BukkitToolKit
 version: '${project.version}'
 main: ru.sliva.tools.BukkitToolKit
 api-version: 1.17
-depend: [ ProtocolLib ]
+# depend: [ ProtocolLib ]
 authors: [ sliva_ru ]
 description: '${project.description}'
 website: '${project.url}'
