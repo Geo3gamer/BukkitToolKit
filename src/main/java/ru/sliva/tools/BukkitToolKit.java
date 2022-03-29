@@ -1,11 +1,16 @@
 package ru.sliva.tools;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import ru.sliva.tools.command.Command;
 import ru.sliva.tools.command.CommandManager;
 import ru.sliva.tools.scheduler.Scheduler;
 import ru.sliva.tools.scheduler.Task;
+import ru.sliva.tools.scoreboard.ScoreboardManager;
+import ru.sliva.tools.scoreboard.Sidebar;
 
 import java.util.List;
 
@@ -34,14 +39,18 @@ public final class BukkitToolKit extends JavaPlugin{
 
         Task testTask = Task.builder()
                 .plugin(this)
-                .runnable(() -> Bukkit.getOnlinePlayers().forEach(player -> player.sendMessage("It works")))
-                .async(true)
+                .runnable(() -> Bukkit.getOnlinePlayers().forEach(player -> ScoreboardManager.setSidebar(player, Sidebar.builder()
+                                .title(Component.text("KPACUBbIU FRONT", NamedTextColor.AQUA, TextDecoration.BOLD))
+                                .lines(Component.text(System.currentTimeMillis(), NamedTextColor.YELLOW), Component.text("second line", NamedTextColor.GOLD),
+                                        Component.text("third line", NamedTextColor.GREEN)).build())))
                 .period(10)
                 .repeating(true)
                 .delay(20)
                 .build();
 
         Scheduler.runTask(testTask);
+
+
     }
 
     @Override

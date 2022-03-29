@@ -66,38 +66,83 @@ public final class Command {
         return Objects.hash(plugin, name, description, usageMessage, permission, aliases, executor, tabCompleter);
     }
 
+    /**
+     * Returns the plugin that owns this command
+     *
+     * @return The plugin.
+     */
     public @NotNull Plugin getPlugin() {
         return plugin;
     }
 
+    /**
+     * Returns the name of the command
+     *
+     * @return The name of the command.
+     */
     public @NotNull String getName() {
         return name;
     }
 
+    /**
+     * It returns the description of the command.
+     *
+     * @return The description of the command.
+     */
     public @NotNull String getDescription() {
         return description;
     }
 
+    /**
+     * Returns the usage message for the command
+     *
+     * @return The usage message.
+     */
     public @NotNull String getUsageMessage() {
         return usageMessage;
     }
 
+    /**
+     * Returns the permission needed to have access to the command.
+     *
+     * @return The permission that the user has to access the command.
+     */
     public @Nullable String getPermission() {
         return permission;
     }
 
+    /**
+     * Returns a list of aliases for this command
+     *
+     * @return A list of strings.
+     */
     public @NotNull List<String> getAliases() {
         return aliases;
     }
 
+    /**
+     * Returns the command executor
+     *
+     * @return A function that takes a CommandSender and a String array and returns a boolean.
+     */
     public @NotNull BiFunction<CommandSender, String[], Boolean> getExecutor() {
         return executor;
     }
 
+    /**
+     * Returns the tab completer for this command
+     *
+     * @return A function that takes a CommandSender and a String array and returns a List of Strings.
+     */
     public @NotNull BiFunction<CommandSender, String[], List<String>> getTabCompleter() {
         return tabCompleter;
     }
 
+    /**
+     * Returns a builder for creating a new instance of this class
+     *
+     * @return The Builder class.
+     */
     public static @NotNull Builder builder() {
         return new Builder();
     }
@@ -114,6 +159,11 @@ public final class Command {
         private BiFunction<CommandSender, String[], Boolean> executor;
         private BiFunction<CommandSender, String[], List<String>> tabCompleter;
 
+        /**
+         * Builds a Command
+         *
+         * @return The Command.
+         */
         @Contract(" -> new")
         public @NotNull Command build() {
             Validate.notNull(plugin, "Plugin must be NotNull");
@@ -123,12 +173,24 @@ public final class Command {
             return new Command(plugin, executor, tabCompleter, name, description, usageMessage, permission, aliases);
         }
 
+        /**
+         * Sets the owner of the command
+         *
+         * @param plugin The plugin that is owner of the command
+         * @return Current builder.
+         */
         public Builder plugin(@NotNull Plugin plugin) {
             Validate.notNull(plugin, "Plugin must be NotNull");
             this.plugin = plugin;
             return this;
         }
 
+        /**
+         * Sets the name of the command.
+         *
+         * @param name The name of the command.
+         * @return Current builder.
+         */
         public Builder name(@NotNull String name) {
             Validate.notNull(name, "Name must be NotNull");
             this.name = name;
@@ -136,39 +198,82 @@ public final class Command {
             return this;
         }
 
+        /**
+         * Sets the description of the command.
+         *
+         * @param description The description of the command.
+         * @return Current builder.
+         */
         public Builder description(@NotNull String description) {
             Validate.notNull(description, "Description must be NotNull");
             this.description = description;
             return this;
         }
 
+        /**
+         * Sets the usage message for the command.
+         *
+         * @param usageMessage The message to display when the user uses the command incorrectly.
+         * @return Current builder.
+         */
         public Builder usageMessage(@NotNull String usageMessage) {
             Validate.notNull(usageMessage, "Usage Message must be NotNull");
             this.usageMessage = usageMessage;
             return this;
         }
 
+        /**
+         * Sets the permission for the command.
+         *
+         * @param permission The permission to be checked in command
+         * @return Current builder.
+         */
         public Builder permission(@Nullable String permission) {
             this.permission = permission;
             return this;
         }
 
+        /**
+         * Sets the aliases for the command.
+         *
+         * @param aliases The list of aliases for the command.
+         * @return Current builder.
+         */
         public Builder aliases(@NotNull List<String> aliases) {
             Validate.notNull(aliases, "Aliases must be NotNull");
             this.aliases = aliases;
             return this;
         }
 
+        /**
+         * Sets the aliases for the command.
+         *
+         * @param aliases The list of aliases for the command.
+         * @return Current builder.
+         */
         public Builder aliases(@NotNull String... aliases) {
+            Validate.notNull(aliases, "Aliases must be NotNull");
             return aliases(Arrays.asList(aliases));
         }
 
+        /**
+         * Sets the executor for command
+         *
+         * @param executor The executor that is a function that will be called when the command is executed.
+         * @return Current builder.
+         */
         public Builder executor(@NotNull BiFunction<CommandSender, String[], Boolean> executor) {
             Validate.notNull(executor, "Executor must be NotNull");
             this.executor = executor;
             return this;
         }
 
+        /**
+         * Sets the tabCompleter function that is used to provide a list of possible completions for the command
+         *
+         * @param tabCompleter The tabCompleter for the command
+         * @return Current builder.
+         */
         public Builder tabCompleter(@NotNull BiFunction<CommandSender, String[], List<String>> tabCompleter) {
             Validate.notNull(tabCompleter, "TabCompleter must be NotNull");
             this.tabCompleter = tabCompleter;

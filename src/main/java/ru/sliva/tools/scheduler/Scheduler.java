@@ -12,12 +12,17 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public final class Scheduler implements Listener {
 
     private static final BukkitScheduler scheduler = Bukkit.getScheduler();
 
+    /**
+     * Runs the task
+     *
+     * @param task The Task that you want to run.
+     * @return The task ID.
+     */
     @Contract(pure = true)
     public static int runTask(@NotNull Task task) {
         Plugin plugin = task.getPlugin();
@@ -45,11 +50,21 @@ public final class Scheduler implements Listener {
         }
     }
 
+    /**
+     * This function cancels a task with the given taskID
+     *
+     * @param taskID The ID of the task to be cancelled.
+     */
     public static void stopTask(int taskID) {
         scheduler.cancelTask(taskID);
     }
 
-    public static void stop(@NotNull Plugin plugin) {
+    /**
+     * It stops all tasks that are owned by the plugin
+     *
+     * @param plugin The plugin that owns the tasks.
+     */
+    private static void stop(@NotNull Plugin plugin) {
         List<BukkitTask> tasks = scheduler.getPendingTasks().stream().filter(bukkitTask -> Objects.equals(bukkitTask.getOwner(), plugin)).toList();
         tasks.forEach(bukkitTask -> stopTask(bukkitTask.getTaskId()));
     }
