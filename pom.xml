@@ -18,6 +18,15 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+         
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Geo3gamer Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/Geo3gamer/BukkitToolKit</url>
+        </repository>
+    </distributionManagement>
+
 
     <url>https://sliva.ml</url>
 
